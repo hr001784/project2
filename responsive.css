@@ -1,0 +1,411 @@
+/* Responsive Design */
+
+/* Extra Small devices (phones, 480px and down) */
+@media (max-width: 480px) {
+    .header__container {
+        flex-direction: column;
+        gap: var(--spacing-4);
+        height: auto;
+        padding: var(--spacing-4);
+    }
+
+    .header__title {
+        font-size: var(--font-size-xl);
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-4);
+    }
+
+    .controls__search {
+        max-width: none;
+    }
+
+    .controls__filters {
+        justify-content: space-between;
+    }
+
+    .employee-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+
+    .employee-card {
+        padding: var(--spacing-4);
+    }
+
+    .employee-card__actions {
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+
+    .pagination {
+        flex-direction: column;
+        gap: var(--spacing-4);
+        align-items: stretch;
+    }
+
+    .pagination__controls {
+        flex-direction: column;
+        gap: var(--spacing-3);
+    }
+
+    .pagination__buttons {
+        justify-content: center;
+    }
+
+    .modal__content {
+        margin: var(--spacing-4);
+        max-width: calc(100vw - 2rem);
+        max-height: calc(100vh - 2rem);
+    }
+
+    .modal__header {
+        padding: var(--spacing-4);
+    }
+
+    .modal__body {
+        padding: var(--spacing-4);
+    }
+
+    .modal__footer {
+        padding: var(--spacing-4);
+        flex-direction: column;
+    }
+
+    .employee-form {
+        padding: var(--spacing-4);
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .filter-panel__filters {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-panel__actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .btn--small {
+        width: auto;
+    }
+
+    .search-box__input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .select {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+/* Small devices (landscape phones, 481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .header__container {
+        padding: 0 var(--spacing-4);
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-4);
+    }
+
+    .controls__search {
+        max-width: none;
+    }
+
+    .employee-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--spacing-4);
+    }
+
+    .pagination {
+        flex-direction: column;
+        gap: var(--spacing-4);
+        align-items: stretch;
+    }
+
+    .pagination__controls {
+        justify-content: space-between;
+    }
+
+    .modal__content {
+        margin: var(--spacing-6);
+        max-width: calc(100vw - 3rem);
+    }
+
+    .filter-panel__filters {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+/* Medium devices (tablets, 769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .employee-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+
+    .controls {
+        flex-wrap: wrap;
+    }
+
+    .controls__search {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .modal__content {
+        max-width: 600px;
+    }
+}
+
+/* Large devices (desktops, 1025px and up) */
+@media (min-width: 1025px) {
+    .employee-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+
+    .controls {
+        flex-wrap: nowrap;
+    }
+
+    .controls__search {
+        max-width: 400px;
+    }
+
+    .modal__content {
+        max-width: 700px;
+    }
+
+    .filter-panel__filters {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Extra Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .employee-grid {
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    }
+
+    .modal__content {
+        max-width: 800px;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (orientation: landscape) and (max-height: 600px) {
+    .modal__content {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .header {
+        position: relative;
+    }
+
+    .main {
+        padding: var(--spacing-4) 0;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .btn__icon,
+    .search-box__icon {
+        transform: scale(1.1);
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .employee-card:hover {
+        transform: none;
+    }
+
+    .modal__content {
+        transition: none;
+    }
+}
+
+/* Dark mode support (if implemented) */
+@media (prefers-color-scheme: dark) {
+    /* This would be implemented if dark mode is added */
+    /* For now, we'll keep the light theme */
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .controls,
+    .pagination,
+    .modal,
+    .btn {
+        display: none !important;
+    }
+
+    .employee-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-4);
+    }
+
+    .employee-card {
+        border: 1px solid var(--color-gray-300);
+        box-shadow: none;
+        break-inside: avoid;
+    }
+
+    .employee-card__actions {
+        display: none;
+    }
+
+    body {
+        background-color: white;
+        color: black;
+    }
+}
+
+/* Focus visible for better accessibility */
+@media (prefers-reduced-motion: no-preference) {
+    .btn:focus-visible,
+    .select:focus-visible,
+    .form-group__input:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+}
+
+/* Container queries (future-proofing) */
+@container (min-width: 400px) {
+    .employee-card {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: var(--spacing-4);
+    }
+
+    .employee-card__actions {
+        grid-column: 2;
+        grid-row: 1 / -1;
+        align-self: center;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        min-height: 44px; /* Minimum touch target size */
+        min-width: 44px;
+    }
+
+    .employee-card__actions .btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .search-box__input,
+    .select,
+    .form-group__input {
+        min-height: 44px;
+    }
+
+    .modal__close {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .pagination__numbers .page-number {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* Specific device adjustments */
+/* iPhone SE and similar small devices */
+@media (max-width: 375px) {
+    .header__title {
+        font-size: var(--font-size-lg);
+    }
+
+    .employee-card {
+        padding: var(--spacing-3);
+    }
+
+    .modal__content {
+        margin: var(--spacing-2);
+        max-width: calc(100vw - 1rem);
+    }
+}
+
+/* iPad Pro and similar large tablets */
+@media (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
+    .employee-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1920px) {
+    .container,
+    .header__container,
+    .main__container {
+        max-width: 1400px;
+    }
+
+    .employee-grid {
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-contrast: high) {
+    :root {
+        --color-gray-200: #000000;
+        --color-gray-300: #000000;
+        --color-gray-400: #000000;
+        --color-gray-500: #000000;
+        --color-gray-600: #000000;
+        --color-gray-700: #000000;
+        --color-gray-800: #000000;
+        --color-gray-900: #000000;
+    }
+
+    .btn {
+        border-width: 2px;
+    }
+
+    .employee-card {
+        border-width: 2px;
+    }
+}
+
+/* Reduced data mode */
+@media (prefers-reduced-data: reduce) {
+    .employee-card:hover {
+        transform: none;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .skeleton {
+        animation: none;
+        background: var(--color-gray-200);
+    }
+} 

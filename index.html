@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Directory - AJACKUS</title>
+    <meta name="description" content="Employee Directory Management System">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/components.css">
+    <link rel="stylesheet" href="static/css/responsive.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👥</text></svg>">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header__container">
+                <h1 class="header__title">Employee Directory</h1>
+                <div class="header__actions">
+                    <button class="btn btn--primary" id="add-employee-btn">
+                        <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Add Employee
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="main__container">
+                <!-- Controls Section -->
+                <section class="controls">
+                    <div class="controls__search">
+                        <div class="search-box">
+                            <svg class="search-box__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                            <input 
+                                type="text" 
+                                id="search-input" 
+                                class="search-box__input" 
+                                placeholder="Search employees..."
+                                aria-label="Search employees"
+                            >
+                        </div>
+                    </div>
+                    
+                    <div class="controls__filters">
+                        <button class="btn btn--secondary btn--small" id="filter-btn">
+                            <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"></polygon>
+                            </svg>
+                            Filters
+                        </button>
+                        
+                        <select id="sort-select" class="select select--small">
+                            <option value="">Sort by...</option>
+                            <option value="firstName">First Name</option>
+                            <option value="lastName">Last Name</option>
+                            <option value="email">Email</option>
+                            <option value="department">Department</option>
+                            <option value="role">Role</option>
+                        </select>
+                        
+                        <select id="items-per-page" class="select select--small">
+                            <option value="5">5 per page</option>
+                            <option value="10" selected>10 per page</option>
+                            <option value="20">20 per page</option>
+                            <option value="50">50 per page</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- Filter Panel -->
+                <section id="filter-panel" class="filter-panel">
+                    <h3 class="filter-panel__title">Filter Employees</h3>
+                    <div class="filter-panel__filters">
+                        <div class="form-group">
+                            <label for="filter-department" class="filter-group__label">Department</label>
+                            <select id="filter-department" class="select">
+                                <option value="">All Departments</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="filter-role" class="filter-group__label">Role</label>
+                            <select id="filter-role" class="select">
+                                <option value="">All Roles</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-panel__actions">
+                        <button class="btn btn--secondary" id="clear-filters">Clear Filters</button>
+                        <button class="btn btn--primary" id="apply-filters">Apply Filters</button>
+                    </div>
+                </section>
+
+                <!-- Employee Grid -->
+                <section id="employee-grid" class="employee-grid">
+                    <!-- Employee cards will be rendered here -->
+                </section>
+
+                <!-- Pagination -->
+                <section id="pagination" class="pagination">
+                    <div class="pagination__info" id="pagination-info">
+                        Showing 1-10 of 15 employees
+                    </div>
+                    
+                    <div class="pagination__controls">
+                        <div class="pagination__buttons">
+                            <button class="btn btn--secondary btn--small" id="prev-page">
+                                <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15,18 9,12 15,6"></polyline>
+                                </svg>
+                                Previous
+                            </button>
+                            
+                            <div id="page-numbers" class="pagination__numbers">
+                                <!-- Page numbers will be rendered here -->
+                            </div>
+                            
+                            <button class="btn btn--secondary btn--small" id="next-page">
+                                Next
+                                <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9,18 15,12 9,6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Employee Modal -->
+    <div id="employee-modal" class="modal">
+        <div id="modal-overlay" class="modal__overlay"></div>
+        <div class="modal__content modal__content--small">
+            <div class="modal__header">
+                <h2 class="modal__title" id="modal-title">Add Employee</h2>
+                <button class="modal__close" id="modal-close">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <form id="employee-form" class="employee-form">
+                <div class="form-group">
+                    <label for="firstName" class="form-group__label">First Name *</label>
+                    <input 
+                        type="text" 
+                        id="firstName" 
+                        name="firstName" 
+                        class="form-group__input" 
+                        required
+                        maxlength="50"
+                        placeholder="Enter first name"
+                    >
+                    <div id="firstName-error" class="form-group__error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName" class="form-group__label">Last Name *</label>
+                    <input 
+                        type="text" 
+                        id="lastName" 
+                        name="lastName" 
+                        class="form-group__input" 
+                        required
+                        maxlength="50"
+                        placeholder="Enter last name"
+                    >
+                    <div id="lastName-error" class="form-group__error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-group__label">Email *</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-group__input" 
+                        required
+                        maxlength="100"
+                        placeholder="Enter email address"
+                    >
+                    <div id="email-error" class="form-group__error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="department" class="form-group__label">Department *</label>
+                    <select id="department" name="department" class="select" required>
+                        <option value="">Select department</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Sales">Sales</option>
+                        <option value="HR">HR</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Operations">Operations</option>
+                    </select>
+                    <div id="department-error" class="form-group__error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="role" class="form-group__label">Role *</label>
+                    <input 
+                        type="text" 
+                        id="role" 
+                        name="role" 
+                        class="form-group__input" 
+                        required
+                        maxlength="100"
+                        placeholder="Enter job role"
+                    >
+                    <div id="role-error" class="form-group__error"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn--secondary" id="cancel-btn">Cancel</button>
+                    <button type="submit" class="btn btn--primary">Save Employee</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal">
+        <div id="confirm-overlay" class="modal__overlay"></div>
+        <div class="modal__content modal__content--small">
+            <div class="modal__header">
+                <h2 class="modal__title">Confirm Action</h2>
+                <button class="modal__close" id="cancel-delete">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal__body">
+                <p>Are you sure you want to delete this employee? This action cannot be undone.</p>
+            </div>
+            
+            <div class="modal__footer">
+                <button class="btn btn--secondary" id="cancel-delete">Cancel</button>
+                <button class="btn btn--danger" id="confirm-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="static/js/data.js"></script>
+    <script src="static/js/validation.js"></script>
+    <script src="static/js/ui.js"></script>
+    <script src="static/js/app.js"></script>
+</body>
+</html> 
